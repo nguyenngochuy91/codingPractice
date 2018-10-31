@@ -5,7 +5,10 @@ Created on Wed Oct 31 10:42:34 2018
 
 @author: huyn
 """
-
+try:
+    from queue import Queue as q
+except:
+    from Queue import Queue as q
 #Given two strings representing integer numbers ("123" , "30") 
 #return a string representing the sum of the two numbers ("153")  
 def addInt(string1,string2):
@@ -252,18 +255,66 @@ def binaryAddition(a,b):
         b=b//10
     if remain:
         output+=remain*10**c 
-# moving zeros
-def moveZeros(array):
+
+def findNextNot0(array,index):
+    for i in range(index,len(array)):
+
+        if array[i]!=0:
+            return i
+    return -1
+def findNext0(array,index):
+    for i in range(index,len(array)):
+        if array[i]==0:
+            return i
+    return -1    
+
+def moveZeroes(array):
+
     first = 0
     second = 0
     while second <len(array) and first <len(array):
-        #make sure we hit the first 0
-        
-    return array
+        first = findNext0(array,first)
+        if not first-1:
+            break
+        second  = findNextNot0(array,first)
+        if second==-1:
+            break # not finding any more not 0
+        else: # swap those 2 index
+            array[first]=array[second]
+            array[second]=0
+            first+=1
+
 
 # traverse a tree vertically
 def traverseVertically(root):
     output = []
+    d = {}
+    newq = q()
+    newq.put([root,0])
+    currentMin = float("inf")
+    currentMax = -float("inf")
+    while not newq.empty():
+        info = newq.get()
+        currentNode = info[0]
+        level = info[1]
+        currentMin= min(currentMin,level)
+        currentMax= max(currentMax,level)
+        if level not in d:
+            d[level] = [currentNode.val]
+        else:
+            d[level].append(currentNode.val)
+        left = currentNode.left
+        if left:
+            newq.put([left,level-1])
+        right = currentNode.right
+        if right:
+            newq.put([right,level+1])
+    for i in range(currentMin,currentMax+1):
+        try:
+            output.extend(d[i])
+        except:
+            continue
+
     return output
 #Write a function to return if two words are exactly "one edit" away, where an edit is:
 #
@@ -271,8 +322,34 @@ def traverseVertically(root):
 #Removing one character
 #Replacing exactly one character
 def isOneEditAway(string1,string2):
-    reutnr False
-#Given array with integer find local minimum.
+    if abs(len(string1)-len(string2))>=2:
+        return False
+    else:
+        c = 0
+        i = 0
+        j = 0
+        while i <len(string1) and j <len(string2):
+            if string1[i]!= string2[j]:
+                if c ==1:
+                    return False
+                else:
+                    c+=1
+                    if len(string1)>len(string2):
+                        i+=1
+                    elif len(string1)<len(string2):
+                        j+=1
+                    
+            else:
+                i+=1
+                j+=1
+                
+    return True
+
+def editDistance(string1,string2):
+    matrix = []
+    return matrix[-1][-1]
+#Given array with integer find local minimum. log(n)
+
 #Given number 743 find the number from the same digits that is smaller than the given and biggest possible.
 #Regex matching 
     
