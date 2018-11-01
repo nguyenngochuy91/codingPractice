@@ -21,6 +21,38 @@ def binarySearch(sortedArray,n):
             stop  = mid-1
 
     return -1
+
+def nextHigherIndex(sortedArray,n):
+    start = 0
+    stop  = len(sortedArray)-1
+    
+    while start <=stop:
+        mid   = (stop+start)//2
+        midVal = sortedArray[mid]
+        if midVal==n:
+            return mid+1
+        elif midVal <n:
+            start = mid+1
+        else:
+            stop  = mid-1
+
+    return start
+
+def nextLowerIndex(sortedArray,n):
+    start = 0
+    stop  = len(sortedArray)-1
+    
+    while start <=stop:
+        mid   = (stop+start)//2
+        midVal = sortedArray[mid]
+        if midVal==n:
+            return mid-1
+        elif midVal <n:
+            start = mid+1
+        else:
+            stop  = mid-1
+
+    return stop
 def isSquare(n):
     if n<=1:
         return n
@@ -52,6 +84,7 @@ def getSquare(n):
             stop  = mid-1
     
     return stop
+
 
 def maximumSubarray(array):
     currentMax = array[0]
@@ -290,7 +323,6 @@ class WordDictionary(object):
                     for item in root:
                         if item !="#":
                             if "#" in root[item]:
-                                print (292)
                                 return True
 #                    print (293())
                     return False
