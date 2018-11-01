@@ -349,100 +349,131 @@ def editDistance(string1,string2):
     matrix = []
     return matrix[-1][-1]
 #Given array with integer find local minimum. log(n)
+def findLocal(array):
+    if len(array)==1:
+        return array[0]
+    if array[0]<=array[1]:
+        return array[0]
+    for i in range(1,len(array)-1):
+        if array[i]<=array[i]-1 and array[i]<=array[i]+1:
+            return array[i]
 
+    return array[-1]       
+def findLocalBST(array):
+    start = 0
+    stop  = len(array)-1
+    while start<=stop:
+            mid = (start+stop)//2
+            if array[mid]<=array[mid+1] and array[mid]<=array[mid-1]:
+                return array[mid]
+            elif array[mid]>array[mid-1]:
+                stop = mid-1
+            else:
+                start = mid+1
+                
+def flattenList(array):
+    output = []
+    for item in array:
+        if type(item)==list:
+#            print (item)
+            subarray= flattenList(item)
+            output.extend(subarray)
+        else:
+            output.append(item)
+    return output
+    
 #Given number 743 find the number from the same digits that is smaller than the given and biggest possible.
-#Regex matching 
-    
-#Given two integers dividend and divisor, divide two integers without using multiplication, division and mod operator.
+def findBiggest(string):
+    string = list(string)
+    if sorted(string)== string:
+        return "".join(string)
+    elif sorted(string,reverse= True) == string:
+        # swap the last two not equal
+        for i in range(len(string),0,-1):
+            if string[i]!=string[i-1]:
+                temp = string[i]
+                string[i] = string[i-1]
+                string[i-1]=temp
+                return "".join(string)
+        return "".join(string)
+    else:
+        return ""
+            
 
-#Return the quotient after dividing dividend by divisor.
-#
-#The integer division should truncate toward zero.
-#
-#Example 1:
-#
-#Input: dividend = 10, divisor = 3
-#Output: 3
-#Example 2:
-#
-#Input: dividend = 7, divisor = -3
-#Output: -2
-    
-#nput [5,6,10] Output [60,50, 30]
-#At every index the product should be product of all except the index.  
-
-#Continous subsequence with target 
-    
-#Return the smallest two numbers in an array.  
-    
-#Q: Sort a binary tree  
-    
-#determine all the rotatable numbers of length k  
-    
-#about dynamic programming and quick select  
-    
-#Solve a set of equations [["A","B","C"], ["C","1"], ["B","C","1"], ["D","B","1"]] 
-#representing A = B + C, etc. The first element is always followed by an equal sign, 
-#and there is only + operator. The solution need to returned as a dictionary.  
-    
-#Given a massive grid of ones an zeroes, and given a subgrid of this, calculate 
-#the number of ones in the subgrid.  
     
 #Given a singly-linked list, print the values in reverse order 
     
 #Write the partition method for Quicksort  
     
 #Given an array of integers, determine if a subarray exists whose sum is a target value 
-    
-#Tax bracket array question  
-    
-#Given an unsorted integer array with a target sum, return all possible triplets 
-#of numbers within the array that add up to the target sum.  
-    
-#Flatten binary tree to doubly linked list
-    
-#coding questions. clone graph  
-    
-#Implement readLine given read4k  
-    
-#Given an integer array, find if the target sum exists as the sum of contiguous elements.  
-    
-#    Given 2 arrays of numbers, return true if 3 consecutive numbers in array A, 
-#add up to a number in array B. Return false otherwise.  
-    
-#Given a hash map information, show all the permutation that could be the possible answer  
-    
-# heap problem
-    
-#There is a 2d grid composed of 0 and 1. 0 means empty grid and 1 means obstacle.
-#Q1: Can you reach the bottom right corner starting from the upper left corner?
-#Q2: Print all possible paths.
-#Q3: Find the shortest path.  
-    
+def subArraySum(arr, n, sum): 
+      
+    # Initialize curr_sum as 
+    # value of first element 
+    # and starting point as 0  
+    curr_sum = arr[0] 
+    start = 0
+  
+    # Add elements one by  
+    # one to curr_sum and  
+    # if the curr_sum exceeds  
+    # the sum, then remove  
+    # starting element  
+    i = 1
+    while i <= n: 
+          
+        # If curr_sum exceeds 
+        # the sum, then remove 
+        # the starting elements 
+        while curr_sum > sum and start < i-1: 
+          
+            curr_sum = curr_sum - arr[start] 
+            start += 1
+              
+        # If curr_sum becomes 
+        # equal to sum, then 
+        # return true 
+        if curr_sum == sum: 
+            print ("Sum found between indexes") 
+            print ("%d and %d"%(start, i-1)) 
+            return 1
+  
+        # Add this element  
+        # to curr_sum 
+        if i < n: 
+            curr_sum = curr_sum + arr[i] 
+        i += 1
+  
+    # If we reach here,  
+    # then no subarray 
+    print ("No subarray found") 
+    return 0
 
+
+class Link(object):
+    def __init__(self,val,next= None):
+        self.val = val
+        self.next= next
+    def reverse(self):
+        prev= None
+        current = self
+        while current:
+            head= current
+            next= current.next
+            current.next = prev
+            prev= current
+            current = next
+        print (head.val)
+        return head
 #1. 2-SUM in sorted array
     
-#1. Remove invalid parentheses
-#2. Leetcode: Walls and Gates
-#3. Leetcode: Flatten Nested List Iterator
-    
-#iven an array of Nodes. Decide whether they can form a binary tree  
-    
-#Is a string Palindrome ? If not, Can the string be made a palindrome after removing a character from that String?  
-    
+      
 #Given a boolean array Cal = [F,F,F,T,T,F,T,T] where T: On vacation F: Not on vacation.
 #Given an integer variable PTO (1)
 #Find the set of days with maximum vacation if PTO were utilised.  
-    
-#Convert integer to English. (e.g. 100 -> one hundred; 12345->twelve thousand three hundred forty five  
+     
     
 #Sort an unsorted linked list from smallest to biggest  
     
 #Checking if Linked List is palindromic  
     
-#The optimal way of sorting while traversing an array
-    
-#Given an array of numbers(ex [3 2 5]), find if its possible to split it into 2 
-#parts with equal sum without reordering (ex [3 2 ] and [5] ) and false if not possible!  
-    
-#Write a program to record the largest ascending sequence, given an array of integers. 
